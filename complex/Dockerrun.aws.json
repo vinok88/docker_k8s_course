@@ -1,0 +1,14 @@
+{
+    "AWSEBDockerrunVersion" : 2,
+    "containerdefinitions" : [
+        {
+            "name" : "client",
+            "image" : "vinok88/client",
+            "host" : "client",
+            "essential" : false
+        },
+        {
+            
+        }
+    ]
+}

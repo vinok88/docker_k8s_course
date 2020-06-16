@@ -1,0 +1,24 @@
+language: generic 
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t vinok88/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true vinok88/react-test npm test
+
+after_success:
+    - docker build -t vinok88/multi-client ./client
+    - docker build -t vinok88/multi-nginx ./nginx
+    - docker build -t vinok88/multi-server ./server
+    - docker build -t vinok88/multi-worker ./worker
+
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    
+    - docker push vinok88/multi-client
+    - docker push vinok88/multi-nginx
+    - docker push vinok88/multi-server
+    - docker push vinok88/multi-worker
+        
