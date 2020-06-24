@@ -3,12 +3,33 @@
     "containerdefinitions" : [
         {
             "name" : "client",
-            "image" : "vinok88/client",
+            "image" : "vinok88/multi-client",
             "host" : "client",
             "essential" : false
         },
         {
-            
+            "name" : "server",
+            "image" : "vinok88/multi-server",
+            "host" : "api",
+            "essential" : false
+        },
+        {
+            "name" : "worker",
+            "image" : "vinok88/multi-worker",
+            "host" : "worker",
+            "essential" : false
+        },
+        {
+            "name" : "nginx",
+            "image" : "vinok88/multi-nginx",
+            "essential" : true,
+            "portMappings" : [
+                {
+                    "hostPort" : 80,
+                    "containerPort" : 80
+                }
+            ],
+            "links" : ["server", "client"]
         }
     ]
 }
