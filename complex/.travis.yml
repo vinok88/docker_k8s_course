@@ -21,4 +21,18 @@ after_success:
     - docker push vinok88/multi-nginx
     - docker push vinok88/multi-server
     - docker push vinok88/multi-worker
+
+    deploy:
+        edge: true
+        provider: elasticbeanstalk
+        region: us-east-1
+        app: multi-docker
+        env: MultiDocker-env
+        bucket_name: elasticbeanstalk-us-east-1-824772757792
+        bucket_path: docker-multi
+        on:
+            branch: master
+        access_key_id: $AWS_ACCESS_KEY
+        secret_access_key:
+            secret: $AWS_SECRET_KEY
         
